@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Swichjump extends Application{
@@ -26,6 +27,9 @@ public class Swichjump extends Application{
 
     boolean isRed=true;
 
+    int time  = 0;
+    int score = 0;
+
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
@@ -35,6 +39,8 @@ public class Swichjump extends Application{
         root.getChildren().add(canvas);
 
         g = canvas.getGraphicsContext2D();
+
+        g.setFont(new Font(30));
 
         Scene scene = new Scene(root,500,500,Color.WHITE);
 
@@ -51,6 +57,9 @@ public class Swichjump extends Application{
             public void handle(long arg0) {
                 draw();
                 if(player.isFly)player.jump();
+
+                time++;
+                score = time/10;
             }
         };
         timer.start();
@@ -71,6 +80,8 @@ public class Swichjump extends Application{
         }
 
 		g.drawImage(img, player.x, player.y);
+
+        g.strokeText("Score:"+score, 350, 30);
 
     }
 
