@@ -17,6 +17,8 @@ public class Swichjump extends Application{
 
     GraphicsContext g;
 
+    Player player = Player.getInstance(10,390);
+
     boolean isRed=true;
 
     @Override
@@ -43,6 +45,7 @@ public class Swichjump extends Application{
             @Override
             public void handle(long arg0) {
                 draw();
+                if(player.isFly)player.jump();
             }
         };
         timer.start();
@@ -62,13 +65,19 @@ public class Swichjump extends Application{
             g.fillRect((i+1)*50, 400, 50, 10);
         }
 
+        g.setFill(Color.GREEN);
+        g.fillRect(player.x, player.y, 10, 10);
+
     }
 
     private void keyPressed(KeyEvent e) {
  
 		switch(e.getCode()) {
 		case SPACE:
-			isRed = isRed ? false : true;
+            if(!player.isFly){
+                isRed = isRed ? false : true;
+                player.isFly=true;
+            }
 			break;
 		default:
 			break;

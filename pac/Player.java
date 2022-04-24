@@ -4,7 +4,8 @@ public class Player {
 
     int x,y;
     private static Player instance=null;
-    int jumpCoolTime=0;
+    int jumpTime=0;
+    boolean isFly=false;
 
     private Player(int x,int y){
         this.x = x;
@@ -19,7 +20,14 @@ public class Player {
     }
 
     public void jump() {
-        this.y -= 5;
+        if(jumpTime==0){
+            jumpTime = 20;
+            isFly=true;
+        }
+        this.y += jumpTime > 10 ? -5 : 5 ;
+        
+        jumpTime--;
+        if(jumpTime==0)isFly=false;
     }
     
 }
