@@ -2,6 +2,8 @@ package pac;
 
 public class Player {
 
+    // W:46 H:23
+
     int x,y;
     private static Player instance=null;
     int jumpTime=0;

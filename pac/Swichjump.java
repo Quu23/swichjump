@@ -1,11 +1,14 @@
 package pac;
 
+import java.io.File;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -17,7 +20,9 @@ public class Swichjump extends Application{
 
     GraphicsContext g;
 
-    Player player = Player.getInstance(10,390);
+    Image img =	new Image(new File("img/slimec.png").toURI().toString());
+
+    Player player = Player.getInstance(10,377);
 
     boolean isRed=true;
 
@@ -65,8 +70,7 @@ public class Swichjump extends Application{
             g.fillRect((i+1)*50, 400, 50, 10);
         }
 
-        g.setFill(Color.GREEN);
-        g.fillRect(player.x, player.y, 10, 10);
+		g.drawImage(img, player.x, player.y);
 
     }
 
