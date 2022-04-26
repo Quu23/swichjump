@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Swichjump extends Application{
+
     public static void main(String[] args) {
         launch(args);
     }
