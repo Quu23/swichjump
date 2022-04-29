@@ -26,6 +26,8 @@ public class Swichjump extends Application{
 
     Player player = Player.getInstance(10,377);
 
+    Blocks blocks = new Blocks();
+
     boolean isRed=true;
 
     int time  = 0;
@@ -59,6 +61,7 @@ public class Swichjump extends Application{
                 draw();
                 if(player.isFly)player.jump();
 
+                blocks.move();
                 time++;
                 score = time/10;
             }
@@ -71,13 +74,18 @@ public class Swichjump extends Application{
         g.setFill(Color.WHITE);
         g.fillRect(0, 0, 500, 500);
 
-        for(int i =0 ;i < 10;i+=2){
-            // 赤足場の描画
-            g.setFill(new Color(1,0,0, isRed ? 1 : 0.4));
-            g.fillRect(i*50, 400, 50, 10);
-            // 青足場の描画
-            g.setFill(new Color(0,0,1, !isRed ? 1 : 0.4));
-            g.fillRect((i+1)*50, 400, 50, 10);
+        for(Block block:this.blocks.blocks){
+            
+            if(block.isRed){
+                // 赤足場の描画
+                g.setFill(new Color(1,0,0, isRed ? 1 : 0.4));
+                g.fillRect(block.x, 400, block.width, 10);
+            }else{
+                // 青足場の描画
+                g.setFill(new Color(0,0,1, !isRed ? 1 : 0.4));
+                g.fillRect(block.x, 400, block.width, 10);
+            }
+
         }
 
 		g.drawImage(img, player.x, player.y);
