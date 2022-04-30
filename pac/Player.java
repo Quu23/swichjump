@@ -33,7 +33,7 @@ public class Player {
             jumpSpeed--;
         }else if(jumpTime == 18 || jumpTime == 17 || jumpTime == 15 || jumpTime == 13){
             jumpSpeed++;
-            if(this.y>377&&this.y<380){
+            if(this.y>377&&this.y<388){
                 this.y=377;
                 jumpTime=1;
             }
