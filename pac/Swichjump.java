@@ -33,6 +33,9 @@ public class Swichjump extends Application{
     int time  = 0;
     int score = 0;
 
+    // ０ならゲーム、１ならゲームオーバー
+    int gameFlg = 0;
+
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
@@ -59,21 +62,35 @@ public class Swichjump extends Application{
             @Override
             public void handle(long arg0) {
                 draw();
-                if(player.isFly)player.jump();
+                if(gameFlg==0){
+                    if(player.isFly)player.jump();
 
-                for(Block b:blocks.blocks){
-                    if(
-                        ((player.x<=b.x&&player.x+46>=b.x)&&!player.isFly&&
-                        ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377
-                    ){  
-                        player.y+=2;
-                        break;
+                    for(Block b:blocks.blocks){
+                        if(
+                            //プレイヤーが落下してもよいか。 
+                            ((player.x>=b.x&&player.x+46<=b.x+b.width)&&!player.isFly&&
+                            ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377
+                        ){  
+                            player.y+=2;
+                            break;
+                        }
+                    }
+
+                    blocks.move();
+                    time++;
+                    score = time/10;
+
+                    if(score == 500){
+                        g.setStroke(Color.BLUE);
+                    }else if(score == 1000){
+                        g.setStroke(Color.GOLD);
+                    }
+
+                    if(player.y>500){
+                        gameFlg=1;
+                        g.setFont(new Font(50));
                     }
                 }
-
-                blocks.move();
-                time++;
-                score = time/10;
             }
         };
         timer.start();
@@ -84,23 +101,29 @@ public class Swichjump extends Application{
         g.setFill(Color.WHITE);
         g.fillRect(0, 0, 500, 500);
 
-        for(Block block:this.blocks.blocks){
+        if(gameFlg==0){
+            for(Block block:this.blocks.blocks){
             
-            if(block.isRed){
-                // 赤足場の描画
-                g.setFill(new Color(1,0,0, isRed ? 1 : 0.4));
-                g.fillRect(block.x, 400, block.width, 10);
-            }else{
-                // 青足場の描画
-                g.setFill(new Color(0,0,1, !isRed ? 1 : 0.4));
-                g.fillRect(block.x, 400, block.width, 10);
+                if(block.isRed){
+                    // 赤足場の描画
+                    g.setFill(new Color(1,0,0, isRed ? 1 : 0.4));
+                    g.fillRect(block.x, 400, block.width, 10);
+                }else{
+                    // 青足場の描画
+                    g.setFill(new Color(0,0,1, !isRed ? 1 : 0.4));
+                    g.fillRect(block.x, 400, block.width, 10);
+                }
+    
             }
-
+    
+            g.drawImage(img, player.x, player.y);
+    
+            g.strokeText("Score:"+score, 350, 30);
+        }else{
+            g.setStroke(Color.RED);
+            g.strokeText("GAMEOVER", 150, 200);
+            g.strokeText("SCORE:"+score, 150, 250);
         }
-
-		g.drawImage(img, player.x, player.y);
-
-        g.strokeText("Score:"+score, 350, 30);
 
     }
 
