@@ -61,6 +61,16 @@ public class Swichjump extends Application{
                 draw();
                 if(player.isFly)player.jump();
 
+                for(Block b:blocks.blocks){
+                    if(
+                        ((player.x<=b.x&&player.x+46>=b.x)&&!player.isFly&&
+                        ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377
+                    ){  
+                        player.y+=2;
+                        break;
+                    }
+                }
+
                 blocks.move();
                 time++;
                 score = time/10;
@@ -99,8 +109,8 @@ public class Swichjump extends Application{
 		switch(e.getCode()) {
 		case SPACE:
             if(!player.isFly){
-                isRed = isRed ? false : true;
                 player.isFly=true;
+                isRed = isRed ? false : true;
             }
 			break;
 		default:
