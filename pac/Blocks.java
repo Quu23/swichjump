@@ -15,6 +15,7 @@ public class Blocks {
         this.blocks.add(new Block(200, 100));
         this.blocks.add(new Block(300, 100));
         this.blocks.add(new Block(400, 100));
+        this.blocks.get(0).isRed=true;
     
     }
     private void add(){
