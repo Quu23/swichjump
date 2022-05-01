@@ -33,7 +33,7 @@ public class Swichjump extends Application{
     int time  = 0;
     int score = 0;
 
-    // ０ならゲーム、１ならゲームオーバー
+    // ０ならゲーム、１ならゲームオーバー、２ならゲームクリア
     int gameFlg = 0;
 
     @Override
@@ -85,10 +85,14 @@ public class Swichjump extends Application{
                     }else if(score == 1000){
                         g.setStroke(Color.GOLD);
                     }
-
-                    if(player.y>500){
+                    if(score > 1500){
+                        gameFlg=2;
+                        g.setFont(new Font(50));
+                        g.setStroke(Color.YELLOW);
+                    }else if(player.y>500){
                         gameFlg=1;
                         g.setFont(new Font(50));
+                        g.setStroke(Color.RED);
                     }
                 }
             }
@@ -119,9 +123,11 @@ public class Swichjump extends Application{
             g.drawImage(img, player.x, player.y);
     
             g.strokeText("Score:"+score, 350, 30);
-        }else{
-            g.setStroke(Color.RED);
+        }else if(gameFlg==1){
             g.strokeText("GAMEOVER", 150, 200);
+            g.strokeText("SCORE:"+score, 150, 250);
+        }else{
+            g.strokeText("GAMECLEAR", 150, 200);
             g.strokeText("SCORE:"+score, 150, 250);
         }
 
