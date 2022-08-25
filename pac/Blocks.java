@@ -7,6 +7,7 @@ public class Blocks {
 
     List<Block> blocks;
     private int blocksWidth=500;
+    private int moveSpeed=1;
 
     Blocks(){
         this.blocks = new ArrayList<>();
@@ -30,10 +31,10 @@ public class Blocks {
     public void move(){  
         for(int i=0;i<this.blocks.size();i++){
             if(i==0){
-                this.blocks.get(i).width--;
-                this.blocksWidth--;
+                this.blocks.get(i).width-=this.moveSpeed;
+                this.blocksWidth-=this.moveSpeed;
             }else{
-                this.blocks.get(i).x--;
+                this.blocks.get(i).x-=this.moveSpeed;
             }       
         }
         if(this.blocks.get(0).width==0){
@@ -43,5 +44,11 @@ public class Blocks {
     }
     private void pop(){
         this.blocks.remove(0);
+    }
+    public int getMoveSpeed() {
+        return moveSpeed;
+    }
+    public void setMoveSpeed(int moveSpeed) {
+        this.moveSpeed = moveSpeed;
     }
 }
