@@ -78,7 +78,6 @@ public class Swichjump extends Application{
 
                     blocks.move();
                     time+=2;
-                    System.out.println(score);
                     score = time/10;
                     if(time%1000==0){
                         blocks.setMoveSpeed(blocks.getMoveSpeed()+1);
