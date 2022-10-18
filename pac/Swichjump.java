@@ -68,8 +68,8 @@ public class Swichjump extends Application{
                     for(Block b:blocks.blocks){
                         if(
                             //プレイヤーが落下してもよいか。 
-                            ((player.x>=b.x&&player.x+46<=b.x+b.width)&&!player.isFly&&
-                            ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377
+                            (((player.x>=b.x&&player.x+46<=b.x+b.width)&&
+                            ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377)&&!player.isFly
                         ){  
                             player.y+=2;
                             break;
@@ -93,10 +93,13 @@ public class Swichjump extends Application{
                         g.setFont(new Font(50));
                         g.setStroke(Color.YELLOW);
                     }else if(player.y>500){
-                        gameFlg=1;
+                        gameFlg=1; 
                         g.setFont(new Font(50));
                         g.setStroke(Color.RED);
                     }
+                    // System.out.println(player.y);
+                    // System.out.println(player.isFly);
+                    // System.out.println(player.jumpTime);
                 }
             }
         };

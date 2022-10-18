@@ -7,9 +7,9 @@ public class Player {
     int x,y;
     private static Player instance=null;
     int jumpTime = 0;
-    final int INITIAL_VELOCITY =50;//初速度
-    final int ACCELERATION = -10; //加速度
-    final int HIGHEST_TIME=(int)(INITIAL_VELOCITY/-ACCELERATION);
+    final int INITIAL_VELOCITY =-30;//初速度
+    final int ACCELERATION = 5; //加速度
+    final int HIGHEST_TIME=(int)(-INITIAL_VELOCITY/ACCELERATION);
     boolean isFly=false;
 
     private Player(int x,int y){
@@ -29,19 +29,8 @@ public class Player {
         this.y=INITIAL_VELOCITY*this.jumpTime+(ACCELERATION*this.jumpTime*this.jumpTime)/2+377;
 
         jumpTime++;
-        
-        // if(jumpTime == 27 || jumpTime == 25 || jumpTime == 23 || jumpTime == 22){
-        //     jumpSpeed--;
-        // }else if(jumpTime == 18 || jumpTime == 17 || jumpTime == 15 || jumpTime == 13){
-        //     jumpSpeed++;
-        //     if(this.y>377&&this.y<388){
-        //         this.y=377;
-        //         jumpTime=1;
-        //     }
-        // }
-        // this.y += jumpTime > 20 ? -1*jumpSpeed : jumpSpeed ;
-        // jumpTime--;
-        if(jumpTime==HIGHEST_TIME*2){
+
+        if(jumpTime==HIGHEST_TIME*2+1){
             isFly=false;
             this.jumpTime=0;
         }
