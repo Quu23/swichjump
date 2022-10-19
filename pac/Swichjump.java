@@ -63,18 +63,20 @@ public class Swichjump extends Application{
             public void handle(long arg0) {
                 draw();
                 if(gameFlg==0){
-                    if(player.isFly)player.jump();
 
                     for(Block b:blocks.blocks){
                         if(
                             //プレイヤーが落下してもよいか。 
                             (((player.x>=b.x&&player.x+46<=b.x+b.width)&&
-                            ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377)&&!player.isFly
+                            ((isRed&&!b.isRed)||(!isRed&&b.isRed)))||player.y>377)&&(player.jumpTime==player.HIGHEST_TIME*2-1||!player.isFly)
                         ){  
-                            player.y+=2;
+                            player.isFall=true;
+                            if(player.jumpTime==0)player.y+=2;
                             break;
                         }
                     }
+
+                    if(player.isFly||player.isFall)player.jump();
 
                     blocks.move();
                     time+=2;
@@ -143,7 +145,7 @@ public class Swichjump extends Application{
  
 		switch(e.getCode()) {
 		case SPACE:
-            if(!player.isFly){
+            if(!player.isFly&&!player.isFall){
                 player.isFly=true;
                 isRed = isRed ? false : true;
             }

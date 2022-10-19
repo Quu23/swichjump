@@ -7,10 +7,11 @@ public class Player {
     int x,y;
     private static Player instance=null;
     int jumpTime = 0;
-    final int INITIAL_VELOCITY =-30;//初速度
+    final int INITIAL_VELOCITY =-60;//初速度
     final int ACCELERATION = 5; //加速度
     final int HIGHEST_TIME=(int)(-INITIAL_VELOCITY/ACCELERATION);
     boolean isFly=false;
+    boolean isFall =false;
 
     private Player(int x,int y){
         this.x = x;
@@ -31,8 +32,10 @@ public class Player {
         jumpTime++;
 
         if(jumpTime==HIGHEST_TIME*2+1){
+            if(!isFall){
+                this.jumpTime=0;
+            }
             isFly=false;
-            this.jumpTime=0;
         }
     }
     
